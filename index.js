@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
-var util = require('./lib/util');
+var util = require('./lib/actions');
 
 app.use(bodyParser.json());
 app.set('port', (process.env.PORT || 5000));
