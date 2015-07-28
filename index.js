@@ -10,8 +10,8 @@ app.set('port', (process.env.PORT || 5000));
 app.post('/callback', function (req, res) {
   var action = req.body.action;
   var actions = {
-    'createCard': [updateCardNameWithId],
-    'updateCard': [updateCardEstimation]
+    'createCard': ['updateCardNameWithId'],
+    'updateCard': ['updateCardEstimation']
   };
 
   console.log('callback of type: ' + action.type);
