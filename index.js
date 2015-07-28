@@ -17,7 +17,7 @@ app.post('/callback', function (req, res) {
 
   var actionsRequested = updateActions[update.type];
   if (actionsRequested) {
-    console.log('action requested: ' + actionRequested);
+    console.log('actions requested: ' + actionsRequested);
     
     actionsRequested.forEach(function (action) {
       if (typeof actions[action] === 'function') {
