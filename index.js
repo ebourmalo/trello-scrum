@@ -1,25 +1,24 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
-var util = require('./lib/actions');
+var actions = require('./lib/actions');
 
 app.use(bodyParser.json());
 app.set('port', (process.env.PORT || 5000));
 
-
 app.post('/callback', function (req, res) {
-  var action = req.body.action;
+  var update = req.body.action;
   var actions = {
     'createCard': ['updateCardNameWithId'],
     'updateCard': ['updateCardEstimation']
   };
 
-  console.log('callback of type: ' + action.type);
+  console.log('[Trello] Update of type: ' + update.type);
 
-  var update = actions[action.type];
-  if (update) {
-    console.log('action requested: ' + update);
-    util[update](action);
+  var actionRequested = actions[update.type];
+  if (actionRequested) {
+    console.log('action requested: ' + actionRequested);
+    actions[actionRequested](update);
   }
 
   res.send('OK');
