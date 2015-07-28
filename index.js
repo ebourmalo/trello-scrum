@@ -7,14 +7,17 @@ app.use(bodyParser.json());
 app.set('port', (process.env.PORT || 5000));
 
 app.post('/callback', function (req, res) {
+  console.log('callback of type: ' + action.type);
+
   var action = req.body.action;
   var actions = {
-    'createCard': [updateCardNameWithId]
+    'createCard': [updateCardNameWithId],
     'updateCard': [updateCardEstimation]
   };
 
   var update = actions[action.type];
   if (update) {
+    console.log('action requested: ' + update);
     util[update](action);
   }
 
