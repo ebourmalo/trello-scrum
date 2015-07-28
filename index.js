@@ -6,14 +6,15 @@ var util = require('./lib/actions');
 app.use(bodyParser.json());
 app.set('port', (process.env.PORT || 5000));
 
-app.post('/callback', function (req, res) {
-  console.log('callback of type: ' + action.type);
 
+app.post('/callback', function (req, res) {
   var action = req.body.action;
   var actions = {
     'createCard': [updateCardNameWithId],
     'updateCard': [updateCardEstimation]
   };
+
+  console.log('callback of type: ' + action.type);
 
   var update = actions[action.type];
   if (update) {
