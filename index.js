@@ -8,17 +8,22 @@ app.set('port', (process.env.PORT || 5000));
 
 app.post('/callback', function (req, res) {
   var update = req.body.action;
-  var actions = {
+  var updateActions = {
     'createCard': ['updateCardNameWithId'],
     'updateCard': ['updateCardEstimation']
   };
 
   console.log('[Trello] Update of type: ' + update.type);
 
-  var actionRequested = actions[update.type];
-  if (actionRequested) {
+  var actionsRequested = updateActions[update.type];
+  if (actionsRequested) {
     console.log('action requested: ' + actionRequested);
-    actions[actionRequested](update);
+    
+    actionsRequested.forEach(function (action) {
+      if (typeof actions[action] === 'function') {
+        actions[action](update);
+      }
+    });
   }
 
   res.send('OK');
